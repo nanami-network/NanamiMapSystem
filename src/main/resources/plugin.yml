@@ -4,6 +4,7 @@ main: xyz.n7mn.dev.nanamimapsystem.NanamiMapSystem
 load: STARTUP
 authors: [ 7mi_chan ]
 description: NanamiMapSystem
+depend: [ ProtocolLib ]
 commands:
   create:
     description: ''
