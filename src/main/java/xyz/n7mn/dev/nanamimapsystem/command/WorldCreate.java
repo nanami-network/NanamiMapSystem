@@ -40,12 +40,13 @@ public class WorldCreate implements CommandExecutor {
 
             if (args.length < 1 || args.length > 3){
                 player.sendMessage("" +
-                        "「/create <名前> <ワールドタイプ>」と入力してください。\n" +
-                        "Enter \"/create <name> <world type>\".\n" +
+                        "「/create <名前> <ワールドタイプ> <seed>」と入力してください。\n" +
+                        "Enter \"/create <name> <world type> <seed>\".\n" +
                         "\n" +
                         "例 (Example) :\n" +
                         "/create testWorld\n" +
-                        "/create testworld nether"
+                        "/create testworld nether\n" +
+                        "/create testWorld"
                 );
                 return true;
             }
@@ -79,26 +80,39 @@ public class WorldCreate implements CommandExecutor {
                 return true;
             }
 
-            if (args.length == 2){
-                if (args[1].equals("normal")){
-                    worldCreator.environment(World.Environment.NORMAL);
-                } else if (args[1].equals("nether")){
-                    worldCreator.environment(World.Environment.NETHER);
-                } else if (args[1].equals("end")){
-                    worldCreator.environment(World.Environment.THE_END);
-                } else if (args[1].equals("flat")){
-                    worldCreator.environment(World.Environment.NORMAL);
-                    worldCreator.type(WorldType.FLAT);
-                } else {
-                    player.sendMessage(ChatColor.YELLOW+"" +
-                            "[ななみ鯖] "+ChatColor.RESET+"ワールドタイプは以下のタイプのみ指定できます。(Only the following types of world types can be specified.)\n" +
-                            "normal -- 通常ワールド (Normal World)\n" +
-                            "nether -- ネザーワールド (Nether World)\n" +
-                            "end    -- ジ・エンドワールド (The End World)\n" +
-                            "flat   -- フラットワールド (Flat World)"
-                    );
-                    return true;
+            if (args.length == 2 || args.length == 3){
+                switch (args[1]) {
+                    case "normal":
+                        worldCreator.environment(World.Environment.NORMAL);
+                        break;
+                    case "nether":
+                        worldCreator.environment(World.Environment.NETHER);
+                        break;
+                    case "end":
+                        worldCreator.environment(World.Environment.THE_END);
+                        break;
+                    case "flat":
+                        worldCreator.environment(World.Environment.NORMAL);
+                        worldCreator.type(WorldType.FLAT);
+                        break;
+                    default:
+                        player.sendMessage(ChatColor.YELLOW + "" +
+                                "[ななみ鯖] " + ChatColor.RESET + "ワールドタイプは以下のタイプのみ指定できます。(Only the following types of world types can be specified.)\n" +
+                                "normal -- 通常ワールド (Normal World)\n" +
+                                "nether -- ネザーワールド (Nether World)\n" +
+                                "end    -- ジ・エンドワールド (The End World)\n" +
+                                "flat   -- フラットワールド (Flat World)"
+                        );
+                        return true;
                 }
+            }
+
+            try {
+                if (args.length == 3){
+                    worldCreator.seed(Long.parseLong(args[2]));
+                }
+            } catch (Exception e){
+                // e.printStackTrace();
             }
 
             plugin.getServer().createWorld(worldCreator);

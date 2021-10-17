@@ -23,7 +23,7 @@ repositories {
 
 dependencies {
     compileOnly 'com.destroystokyo.paper:paper-api:1.12.2-R0.1-SNAPSHOT'
-    compileOnly 'mysql:mysql-connector-java:8.0.26'
+    implementation 'mysql:mysql-connector-java:8.0.26'
 
     compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0'
 }
