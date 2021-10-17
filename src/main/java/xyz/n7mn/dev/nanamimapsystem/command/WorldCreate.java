@@ -154,6 +154,7 @@ public class WorldCreate implements CommandExecutor {
                         statement.setTimestamp(6, nowTime);
                         statement.setTimestamp(7, nowTime);
                         statement.setBoolean(8, true);
+                        statement.setBoolean(9, true);
 
                         statement.execute();
                         statement.close();

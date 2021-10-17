@@ -11,10 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import xyz.n7mn.dev.nanamimapsystem.util.MySQL;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Date;
 import java.util.UUID;
 
 public class WorldLoad implements CommandExecutor {
@@ -44,6 +42,7 @@ public class WorldLoad implements CommandExecutor {
                 return true;
             }
 
+            UUID worldId = null;
             String name = null;
             String type = null;
             UUID user = null;
@@ -52,6 +51,7 @@ public class WorldLoad implements CommandExecutor {
                 statement.setString(1, args[0]);
                 ResultSet set = statement.executeQuery();
                 if (set.next()){
+                    worldId = UUID.fromString(set.getString("WorldUUID"));
                     name = set.getString("FolderName");
                     type = set.getString("WorldType");
                     user = UUID.fromString(set.getString("CreateUserUUID"));
@@ -103,6 +103,24 @@ public class WorldLoad implements CommandExecutor {
             World world = plugin.getServer().getWorld(name);
             player.teleport(world.getSpawnLocation());
             player.sendMessage(ChatColor.YELLOW+"[ななみ鯖] "+ChatColor.RESET+"ワールドをロードしてテレポートしました。 (The world name does not exist.)");
+
+            UUID finalWorldId = worldId;
+            new Thread(()->{
+                try {
+                    Connection con = MySQL.getConnect();
+                    if (con != null){
+                        PreparedStatement statement = con.prepareStatement("UPDATE `MapList` SET `LastLoadDate`= NOW() WHERE WorldUUID = ?");
+                        statement.setString(1, finalWorldId.toString());
+
+                        statement.execute();
+                        statement.close();
+                    }
+
+                    MySQL.disconnectConnect(con);
+                } catch (Exception ex){
+                    ex.printStackTrace();
+                }
+            }).start();
         }
 
         return true;
