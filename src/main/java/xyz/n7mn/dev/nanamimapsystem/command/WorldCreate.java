@@ -13,8 +13,6 @@ import org.bukkit.plugin.Plugin;
 import xyz.n7mn.dev.nanamimapsystem.util.MySQL;
 
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,7 +34,7 @@ public class WorldCreate implements CommandExecutor {
         if (sender instanceof Player){
             Player player = (Player) sender;
 
-            if (!player.isOp()){
+            if (!player.isOp() || !player.hasPermission("nanamimap.create")){
                 return true;
             }
 
@@ -156,6 +154,7 @@ public class WorldCreate implements CommandExecutor {
                         statement.setTimestamp(6, nowTime);
                         statement.setTimestamp(7, nowTime);
                         statement.setBoolean(8, true);
+
                         statement.execute();
                         statement.close();
                     }

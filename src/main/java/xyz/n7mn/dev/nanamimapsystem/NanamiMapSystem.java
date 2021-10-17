@@ -3,6 +3,7 @@ package xyz.n7mn.dev.nanamimapsystem;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.n7mn.dev.nanamimapsystem.command.WorldCreate;
+import xyz.n7mn.dev.nanamimapsystem.command.WorldLoad;
 import xyz.n7mn.dev.nanamimapsystem.util.MySQL;
 
 import java.sql.Connection;
@@ -10,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public final class NanamiMapSystem extends JavaPlugin {
@@ -41,6 +41,7 @@ public final class NanamiMapSystem extends JavaPlugin {
         getLogger().info("有効マップ数 : "+map.size() + " マップ");
 
         getCommand("create").setExecutor(new WorldCreate(this));
+        getCommand("load").setExecutor(new WorldLoad(this));
     }
 
     @Override

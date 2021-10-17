@@ -9,3 +9,24 @@ commands:
     description: ''
     permission-message: ''
     permission: 'nanamimap.create'
+    usage: '/create'
+  delete:
+    description: ''
+    permission: 'nanamimap.delete'
+    permission-message: ''
+    usage: '/delete'
+  list:
+    description: ''
+    permission: 'nanamimap.list'
+    permission-message: ''
+    usage: '/list'
+  load:
+    description: ''
+    permission: 'nanami.load'
+    permission-message: ''
+    usage: '/load'
+  move:
+    description: ''
+    permission: '/move'
+    permission-message: ''
+    usage: '/move'
