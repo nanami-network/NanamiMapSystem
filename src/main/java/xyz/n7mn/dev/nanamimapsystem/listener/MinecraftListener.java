@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
@@ -90,5 +91,27 @@ public class MinecraftListener implements Listener {
 
         }).start();
 
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void PlayerCommandPreprocessEvent (PlayerCommandPreprocessEvent e){
+        String message = e.getMessage();
+
+
+        boolean isFound = false;
+        for (Plugin plugin1 : plugin.getServer().getPluginManager().getPlugins()){
+            if (plugin1.getName().equals("Multiverse-Core")){
+                isFound = true;
+                break;
+            }
+        }
+        if (!isFound){
+            return;
+        }
+
+        if (message.startsWith("/mv create")){
+            e.getPlayer().sendMessage(ChatColor.YELLOW+"[ななみ鯖] "+ChatColor.RESET+"システム変更のため 一時的に新規ワールド作成をできなくしております。");
+            e.setCancelled(true);
+        }
     }
 }
