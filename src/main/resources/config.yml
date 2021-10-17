@@ -1,7 +1,7 @@
 MySQLServer: ''
 MySQLPort: 3306
 MySQLDatabase: ''
-MySQLOption: ''
+MySQLOption: '?allowPublicKeyRetrieval=true&useSSL=false'
 
 MySQLUsername: ''
 MySQLPassword: ''

@@ -2,6 +2,7 @@ package xyz.n7mn.dev.nanamimapsystem;
 
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
+import xyz.n7mn.dev.nanamimapsystem.command.WorldCreate;
 import xyz.n7mn.dev.nanamimapsystem.util.MySQL;
 
 import java.sql.Connection;
@@ -37,8 +38,9 @@ public final class NanamiMapSystem extends JavaPlugin {
             }
         }
         MySQL.disconnectConnect(con);
-
         getLogger().info("有効マップ数 : "+map.size() + " マップ");
+
+        getCommand("create").setExecutor(new WorldCreate(this));
     }
 
     @Override

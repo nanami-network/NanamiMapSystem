@@ -1,5 +1,6 @@
 package xyz.n7mn.dev.nanamimapsystem.command;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -65,13 +66,11 @@ public class WorldCreate implements CommandExecutor {
                     folderName = worldName.substring(0, 32);
                 }
             } else {
-                try {
-                    MessageDigest instance = MessageDigest.getInstance("SHA-256");
-                    instance.update(Byte.parseByte(String.valueOf(new SecureRandom().nextInt())));
-                    String s = new String(instance.digest());
+                String s = DigestUtils.sha512Hex(String.valueOf(new SecureRandom().nextInt()));
+                if (s.length() < 32){
+                    folderName = s;
+                } else {
                     folderName = s.substring(0, 32);
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
                 }
             }
             WorldCreator worldCreator = WorldCreator.name(folderName);
@@ -157,7 +156,11 @@ public class WorldCreate implements CommandExecutor {
                         statement.setTimestamp(6, nowTime);
                         statement.setTimestamp(7, nowTime);
                         statement.setBoolean(8, true);
+                        statement.execute();
+                        statement.close();
                     }
+
+                    MySQL.disconnectConnect(con);
                 } catch (Exception ex){
                     ex.printStackTrace();
                 }
