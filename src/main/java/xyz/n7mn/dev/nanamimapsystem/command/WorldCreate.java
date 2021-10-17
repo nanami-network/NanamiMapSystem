@@ -134,7 +134,7 @@ public class WorldCreate implements CommandExecutor {
                     "[ななみ鯖] "+ChatColor.RESET+"テレポートしました。\n" +
                     "Teleported to the world.\n" +
                     "削除するには「/delete "+worldName+"」と入力してください\n" +
-                    "To delete, type \"/delete abc\"."
+                    "To delete, type \"/delete "+worldName+"\"."
             );
 
             String finalWorldName = worldName;
