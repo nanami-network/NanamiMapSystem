@@ -19,6 +19,7 @@ public final class NanamiMapSystem extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        saveDefaultConfig();
 
         Connection con = MySQL.getConnect();
 
