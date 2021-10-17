@@ -20,6 +20,7 @@ import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 public class WorldCreate implements CommandExecutor {
 
@@ -115,6 +116,14 @@ public class WorldCreate implements CommandExecutor {
                 // e.printStackTrace();
             }
 
+
+            try {
+                folderName = Pattern.compile("[(\\|/|:|\\*|?|\"|<|>|\\\\|)]").matcher(folderName).replaceAll("");
+            } catch (Exception ex){
+                ex.printStackTrace();
+                player.sendMessage(ChatColor.YELLOW + "[ななみ鯖] "+ChatColor.RESET+"ワールド名がおかしいです。");
+                return true;
+            }
             plugin.getServer().createWorld(worldCreator);
             World world = plugin.getServer().getWorld(folderName);
 
