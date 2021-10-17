@@ -132,7 +132,7 @@ public class MinecraftListener implements Listener {
             return;
         }
 
-        if (message.startsWith("/mv create")){
+        if (message.startsWith("/mv create") || message.startsWith("/mvcreate") || message.startsWith("/mvc")){
             e.getPlayer().sendMessage(ChatColor.YELLOW+"[ななみ鯖] "+ChatColor.RESET+"システム変更のため 一時的に新規ワールド作成をできなくしております。");
             e.setCancelled(true);
         }
