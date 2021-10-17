@@ -33,6 +33,18 @@ public class MinecraftListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void PlayerJoinEvent (PlayerJoinEvent e){
+
+        boolean isFound = false;
+        for (Plugin plugin1 : plugin.getServer().getPluginManager().getPlugins()){
+            if (plugin1.getName().equals("Multiverse-Core")){
+                isFound = true;
+                break;
+            }
+        }
+        if (isFound){
+            return;
+        }
+
         ProtocolManager manager = ProtocolLibrary.getProtocolManager();
 
         if (manager.getProtocolVersion(e.getPlayer()) > 340){
@@ -43,6 +55,17 @@ public class MinecraftListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void PlayerQuitEvent (PlayerQuitEvent e){
+
+        boolean isFound = false;
+        for (Plugin plugin1 : plugin.getServer().getPluginManager().getPlugins()){
+            if (plugin1.getName().equals("Multiverse-Core")){
+                isFound = true;
+                break;
+            }
+        }
+        if (isFound){
+            return;
+        }
 
         World world = e.getPlayer().getWorld();
         new Thread(()->{
@@ -111,6 +134,10 @@ public class MinecraftListener implements Listener {
 
         if (message.startsWith("/mv create")){
             e.getPlayer().sendMessage(ChatColor.YELLOW+"[ななみ鯖] "+ChatColor.RESET+"システム変更のため 一時的に新規ワールド作成をできなくしております。");
+            e.setCancelled(true);
+        }
+
+        if (message.startsWith("/create") || message.startsWith("/move") || message.startsWith("/remove") || message.startsWith("/load")){
             e.setCancelled(true);
         }
     }
