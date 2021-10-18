@@ -4,6 +4,7 @@ import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.n7mn.dev.nanamimapsystem.command.WorldCreate;
 import xyz.n7mn.dev.nanamimapsystem.command.WorldLoad;
+import xyz.n7mn.dev.nanamimapsystem.command.WorldMove;
 import xyz.n7mn.dev.nanamimapsystem.listener.MinecraftListener;
 import xyz.n7mn.dev.nanamimapsystem.util.MySQL;
 
@@ -43,6 +44,7 @@ public final class NanamiMapSystem extends JavaPlugin {
 
         getCommand("create").setExecutor(new WorldCreate(this));
         getCommand("load").setExecutor(new WorldLoad(this));
+        getCommand("move").setExecutor(new WorldMove(this));
 
 
         getServer().getPluginManager().registerEvents(new MinecraftListener(this), this);

@@ -23,11 +23,11 @@ commands:
     usage: '/list'
   load:
     description: ''
-    permission: 'nanami.load'
+    permission: 'nanamimap.load'
     permission-message: ''
     usage: '/load'
   move:
     description: ''
-    permission: '/move'
+    permission: 'nanamimap.move'
     permission-message: ''
     usage: '/move'
