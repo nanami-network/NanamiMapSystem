@@ -57,20 +57,13 @@ public class WorldCreate implements CommandExecutor {
             String worldType = "normal";
 
             player.sendMessage(ChatColor.YELLOW + "[ななみ鯖] "+ChatColor.RESET+"現在ワールド生成中... (World generation in progress.)");
-            if (worldName.getBytes(StandardCharsets.UTF_8).length == worldName.length()){
-                if (worldName.length() <= 32){
-                    folderName = worldName;
-                } else {
-                    folderName = worldName.substring(0, 32);
-                }
+            String s = DigestUtils.sha512Hex(worldName + new SecureRandom().nextInt());
+            if (s.length() < 32){
+                folderName = s;
             } else {
-                String s = DigestUtils.sha512Hex(String.valueOf(new SecureRandom().nextInt()));
-                if (s.length() < 32){
-                    folderName = s;
-                } else {
-                    folderName = s.substring(0, 32);
-                }
+                folderName = s.substring(0, 32);
             }
+
             WorldCreator worldCreator = WorldCreator.name(folderName);
 
             if (folderName.length() == 0){
