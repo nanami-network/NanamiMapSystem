@@ -16,11 +16,6 @@ commands:
     permission: 'nanamimap.delete'
     permission-message: ''
     usage: '/delete'
-  list:
-    description: ''
-    permission: 'nanamimap.list'
-    permission-message: ''
-    usage: '/list'
   load:
     description: ''
     permission: 'nanamimap.load'
