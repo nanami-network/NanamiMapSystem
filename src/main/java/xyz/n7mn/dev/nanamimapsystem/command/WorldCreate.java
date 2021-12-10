@@ -146,7 +146,7 @@ public class WorldCreate implements CommandExecutor {
                         Timestamp nowTime = new Timestamp(new Date().getTime());
                         statement.setTimestamp(6, nowTime);
                         statement.setTimestamp(7, nowTime);
-                        statement.setBoolean(8, true);
+                        statement.setBoolean(8, false);
                         statement.setBoolean(9, true);
 
                         statement.execute();
