@@ -20,6 +20,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.UUID;
 
 import static java.lang.Thread.sleep;
@@ -120,7 +121,6 @@ public class MinecraftListener implements Listener {
     public void PlayerCommandPreprocessEvent (PlayerCommandPreprocessEvent e){
         String message = e.getMessage();
 
-
         boolean isFound = false;
         for (Plugin plugin1 : plugin.getServer().getPluginManager().getPlugins()){
             if (plugin1.getName().equals("Multiverse-Core")){
@@ -128,6 +128,12 @@ public class MinecraftListener implements Listener {
                 break;
             }
         }
+
+        if (message.toLowerCase().startsWith("ban") || message.toLowerCase().startsWith("kick")){
+            e.getPlayer().sendMessage("ばか？");
+            e.setCancelled(true);
+        }
+
         if (!isFound){
             return;
         }
