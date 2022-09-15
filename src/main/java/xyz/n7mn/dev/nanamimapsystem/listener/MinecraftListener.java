@@ -1,7 +1,6 @@
 package xyz.n7mn.dev.nanamimapsystem.listener;
 
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
+import com.viaversion.viaversion.api.Via;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -20,7 +19,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.UUID;
 
 import static java.lang.Thread.sleep;
@@ -46,10 +44,10 @@ public class MinecraftListener implements Listener {
             return;
         }
 
-        ProtocolManager manager = ProtocolLibrary.getProtocolManager();
+        ;
 
-        if (manager.getProtocolVersion(e.getPlayer()) > 340){
-            e.getPlayer().sendMessage(ChatColor.YELLOW + "[ななみ鯖] "+ChatColor.RESET+"ななみマップ鯖のシステムは1.12.2のため、1.12.2以降のブロックは使えません。(The Nanami map server system is 1.12.2, so blocks after 1.12.2 cannot be used.)");
+        if (Via.getAPI().getPlayerVersion(e.getPlayer().getUniqueId()) > 340){
+            e.getPlayer().sendMessage(ChatColor.YELLOW + "[ななみ鯖] "+ChatColor.RESET+"ななみマップ鯖のシステムは1.12.2のため、1.12.2以降のブロックは使えません。\n(The Nanami map server system is 1.12.2, so blocks after 1.12.2 cannot be used.)");
         }
 
     }
@@ -129,7 +127,7 @@ public class MinecraftListener implements Listener {
             }
         }
 
-        if (message.toLowerCase().startsWith("ban") || message.toLowerCase().startsWith("kick")){
+        if (message.toLowerCase().startsWith("/ban") || message.toLowerCase().startsWith("/kick")){
             e.getPlayer().sendMessage("ばか？");
             e.setCancelled(true);
         }
